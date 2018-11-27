@@ -11,13 +11,39 @@
 <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
 	<!--菜单处理-->
+    $(function () {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/mselectAll",
+            async: false,
+            success: function (data) {
+                var list = data.menu;
+                for (var i = 0; i < list.length; i++) {
+                    var mlist = list[i].mlist;
+                    var mn = "";
+                    for (var j = 0; j < mlist.length; j++) {
+                        mn += "<li><a href='" + list[i].mlist[j].url + "'>" + list[i].mlist[j].title + "</a></li>";
+                    }
+                    $('#aa').accordion('add', {
+                        id: "a" + i,
+                        content: mn,
+                        title: list[i].title,
+                        selected: false,
+                    });
+
+                }
+            },
+            //dataType:"json"
+        });
+    });
 </script>
 
 </head>
 <body class="easyui-layout">   
     <div data-options="region:'north',split:true" style="height:60px;background-color:  #5C160C">
     	<div style="font-size: 24px;color: #FAF7F7;font-family: 楷体;font-weight: 900;width: 500px;float:left;padding-left: 20px;padding-top: 10px" >持名法州后台管理系统</div>
-    	<div style="font-size: 16px;color: #FAF7F7;font-family: 楷体;width: 300px;float:right;padding-top:15px">欢迎您:xxxxx &nbsp;<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改密码</a>&nbsp;&nbsp;<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-01'">退出系统</a></div>
+        <div style="font-size: 16px;color: #FAF7F7;font-family: 楷体;width: 300px;float:right;padding-top:15px">
+            欢迎您:${param.name} &nbsp;<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改密码</a>&nbsp;&nbsp;<a
+                href="#" class="easyui-linkbutton" data-options="iconCls:'icon-01'">退出系统</a></div>
     </div>   
     <div data-options="region:'south',split:true" style="height: 40px;background: #5C160C">
     	<div style="text-align: center;font-size:15px; color: #FAF7F7;font-family: 楷体" >&copy;百知教育 htf@zparkhr.com.cn</div>
@@ -25,7 +51,6 @@
        
     <div data-options="region:'west',title:'导航菜单',split:true" style="width:220px;">
     	<div id="aa" class="easyui-accordion" data-options="fit:true">
-    		
 		</div>  
     </div>   
     <div data-options="region:'center'">

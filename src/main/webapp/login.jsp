@@ -12,26 +12,49 @@
 	<link rel="stylesheet" href="css/login.css" type="text/css"></link>
 	<script type="text/javascript" src="script/jquery.js"></script>
 	<script type="text/javascript" src="script/common.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
 	<script type="text/javascript">
 	
 		$(function(){
 			//点击更换验证码：
 			$("#captchaImage").click(function(){//点击更换验证码
-				alert("自己做");
+                $("#captchaImage").prop("src", "getkaptcha?b=" + Math.random());
 			});
-			
+
 			//  form 表单提交
-			$("#loginForm").bind("submit",function(){
-				alert("自己做");
-				return false;
-			});
-		});
+            /*$("#loginForm").bind("submit",function(){
+
+                return true;
+            });*/
+        });
+
+
+        //执行登录操作
+        function doLogin() {
+            //alert("jinru!")
+            //通过form控件提交表单
+            $("#loginForm").form("submit", {
+                url: "login",
+                success: function (data) {
+                    data = JSON.parse(data);
+                    //alert(data.login)
+                    //如果登录成功了，关闭登录对话框；把登录按钮替换掉
+                    if (data.login) {
+                        var name = data.admin.name;
+                        window.location.href = '${pageContext.request.contextPath}/main/main.jsp?name=' + name;
+                    } else {
+                        alert("账号或密码错误请重新登录");
+                    }
+                }
+            });
+        }
 	</script>
 </head>
 <body>
 	
 		<div class="login">
-			<form id="loginForm" action="../back/index.html" method="post" >
+			<form id="loginForm" method="post">
 				
 				<table>
 					<tbody>
@@ -43,7 +66,7 @@
 								用户名:
 							</th>
 							<td>
-								<input type="text"  name="user.name" class="text" value="xxx" maxlength="20"/>
+								<input type="text" name="name" class="text" maxlength="20"/>
 							</td>
 					  </tr>
 					  <tr>
@@ -51,7 +74,7 @@
 								密&nbsp;&nbsp;&nbsp;码:
 							</th>
 							<td>
-								<input type="password" name="user.password" class="text" value="xxx" maxlength="20" autocomplete="off"/>
+								<input type="password" name="password" class="text" maxlength="20" autocomplete="off"/>
 							</td>
 					  </tr>
 					
@@ -60,7 +83,8 @@
 							<th>验证码:</th>
 							<td>
 								<input type="text" id="enCode" name="enCode" class="text captcha" maxlength="4" autocomplete="off"/>
-								<img id="captchaImage" class="captchaImage" src="img/captcha.jpg" title="点击更换验证码"/>
+								<img id="captchaImage" class="captchaImage"
+									 src="${pageContext.request.contextPath}/getkaptcha" title="点击更换验证码"/>
 							</td>
 						</tr>					
 					<tr>
@@ -75,7 +99,8 @@
 						<td>&nbsp;</td>
 						<th>&nbsp;</th>
 						<td>
-							<input type="button" class="homeButton" value="" onclick="location.href='/'"><input type="submit" class="loginButton" value="登录">
+							<%--<input type="button" class="homeButton" value="" onclick="location.href='/'"><input type="submit" class="loginButton" value="登录">--%>
+							<input class="loginButton" onclick="doLogin()" value="登录">
 						</td>
 					</tr>
 				</tbody></table>
