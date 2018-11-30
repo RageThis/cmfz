@@ -4,11 +4,13 @@ import com.baizhi.cmfz.dao.AdminDao;
 import com.baizhi.cmfz.entity.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@Transactional
 public class AdminServiceImpl implements AdminService {
 
     @Autowired

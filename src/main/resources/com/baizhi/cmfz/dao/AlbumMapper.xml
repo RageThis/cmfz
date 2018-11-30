@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.cmfz.dao.AlbumDao">
+    <resultMap id="am" type="Album">
+        <id column="aid" property="id"/>
+        <result column="atitle" property="title"/>
+        <collection property="children" ofType="Chapter">
+            <id column="id" property="id"/>
+            <result column="title" property="title"/>
+            <result column="size" property="size"/>
+            <result column="duration" property="duration"/>
+            <result column="downpath" property="downpath"/>
+        </collection>
+    </resultMap>
+    <select id="selectAll" resultMap="am">
+      select a.id aid,a.title atitle,c.* from album a left join chapter c  on a.id=c.parentid
+    </select>
+    <select id="getCount" resultType="int">
+        select count(*) from album
+    </select>
+    <insert id="insertOne">
+        insert into album (title,author,broadCast,brief)
+         values(#{title},#{author},#{broadCast},#{brief})
+    </insert>
+</mapper>	

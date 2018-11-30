@@ -9,6 +9,8 @@
 <script type="text/javascript" src="../js/jquery.min.js"></script>   
 <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>  
 <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../js/datagrid-detailview.js"></script>
+    <script type="text/javascript" src="../js/jquery.edatagrid.js"></script>
 <script type="text/javascript">
 	<!--菜单处理-->
     $(function () {
@@ -21,7 +23,7 @@
                     var mlist = list[i].mlist;
                     var mn = "";
                     for (var j = 0; j < mlist.length; j++) {
-                        mn += "<li><a href='" + list[i].mlist[j].url + "'>" + list[i].mlist[j].title + "</a></li>";
+                        mn += "<p><a id=\"btn\" class=\"easyui-linkbutton\" onclick=\"addTabs('" + mlist[j].title + "','" + mlist[j].url + "','" + mlist[j].iconCls + "')\" data-options=\"iconCls:'icon-search'\">" + mlist[j].title + "</a></p>";
                     }
                     $('#aa').accordion('add', {
                         id: "a" + i,
@@ -35,6 +37,22 @@
             //dataType:"json"
         });
     });
+
+    function addTabs(title, url, iconCls) {
+        var flag = $("#tt").tabs("exists", title);
+        if (flag) {
+            $("#tt").tabs("select", title);
+        } else {
+            /*添加选项卡*/
+            $('#tt').tabs('add', {
+                title: title,
+                selected: true,
+                href: "${pageContext.request.contextPath}" + url,
+                iconCls: iconCls,
+                closable: true,
+            });
+        }
+    }
 </script>
 
 </head>

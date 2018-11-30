@@ -1,13 +1,13 @@
-#ÅäÖÃtomcatµÄ¶Ë¿ÚºÅºÍÈÈ²¿Êğ
+#ï¿½ï¿½ï¿½ï¿½tomcatï¿½Ä¶Ë¿ÚºÅºï¿½ï¿½È²ï¿½ï¿½ï¿½
 server:
   port: 8081
-  context-path: /cmzf
+  context-path: /cmfz
   jsp-servlet:
     init-parameters:
       development: true
 
 
-#Êı¾İÔ´µÄÁ¬½Ó
+#ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -15,17 +15,20 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 501250
-  #ÊÓÍ¼½âÎöÆ÷µÄÅäÖÃ
+  #ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   mvc:
     view:
       prefix: /
       suffix: .jsp
-  #±àÂë¸ñÊ½µÄÉèÖÃ,true´ú±íÏìÓ¦ÊÇÊ¹ÓÃÇëÇóµÄ±àÂë¸ñÊ½
+  #ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,trueï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½Ê½
   http:
     encoding:
       charset: utf-8
       force: true
-#Ö¸¶¨É¨ÃèµÄ½Ó¿ÚºÍmapperÎÄ¼ş
+    multipart:
+      max-file-size: 15Mb
+      max-request-size: 150Mb
+    #Ö¸ï¿½ï¿½É¨ï¿½ï¿½Ä½Ó¿Úºï¿½mapperï¿½Ä¼ï¿½
 mybatis:
   mapper-locations: com/baizhi/cmfz/dao/*Mapper.xml
   type-aliases-package: com.baizhi.cmfz.entity
