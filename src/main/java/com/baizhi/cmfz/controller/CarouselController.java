@@ -26,7 +26,7 @@ public class CarouselController {
 
     @RequestMapping("/Cupdate")
     public void update(Carousel c) {
-        System.out.println(c);
+        //System.out.println(c);
         cs.updateStates(c);
     }
 
@@ -57,7 +57,7 @@ public class CarouselController {
             e.printStackTrace();
         }
         c.setImgPath(fileName);
-        System.out.println(c);
+        //System.out.println(c);
         return cs.insert(c);
 
     }
